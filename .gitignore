@@ -5,7 +5,7 @@ db.sqlite3
 .env
 .env.local
 venv/
-rzor_env/           # Your virtual environment
+rzor_env/
 
 # Django specific
 /media/
