@@ -21,5 +21,12 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Auth endpoints
+    path('api/auth/', include('dj_rest_auth.urls')),                # login/logout/password reset
+    path('api/auth/registration/', include('dj_rest_auth.registration.urls')),  # registration
+    path('api/auth/', include('allauth.socialaccount.urls')),      # social login (Google)
+    
+    # Your app
     path('api/', include('appointments.urls')),
 ]

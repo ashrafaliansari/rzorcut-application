@@ -37,10 +37,21 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    # Third-party
+    "rest_framework",
+    "rest_framework.authtoken",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
+    "dj_rest_auth",
+    "dj_rest_auth.registration",
     "appointments",
     "corsheaders",
-    "rest_framework"
 ]
+
+SITE_ID = 1  # Required for allauth
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -51,6 +62,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "project_rzorcut.urls"
@@ -60,9 +72,19 @@ CORS_ALLOW_ALL_ORIGINS = True
 # REST framework settings
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
     ),
 }
+# For dev: prints OTPs to console
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'ashraf.shiksha001@gmail.com'
+EMAIL_HOST_PASSWORD = 'zxvkvdvfkroyqugv'  # Not your Gmail password!
+DEFAULT_FROM_EMAIL = 'RzorCut <bookings_rzorcut@gmail.com>'
 
 TEMPLATES = [
     {
@@ -134,3 +156,8 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+# New way to allow email-only login
+ACCOUNT_LOGIN_METHODS = {"email"}
+
+# New signup field declaration
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
