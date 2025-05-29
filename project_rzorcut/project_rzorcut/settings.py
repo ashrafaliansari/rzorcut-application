@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import json
+with open('/Users/ashraf/Desktop/booking_system/keys.json', 'r') as file:
+    data = json.load(file)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -83,7 +85,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ashraf.shiksha001@gmail.com'
-EMAIL_HOST_PASSWORD = 'zxvkvdvfkroyqugv'  # Not your Gmail password!
+EMAIL_HOST_PASSWORD = str(data['secret_key'])  # Not your Gmail password!
 DEFAULT_FROM_EMAIL = 'RzorCut <bookings_rzorcut@gmail.com>'
 
 TEMPLATES = [
